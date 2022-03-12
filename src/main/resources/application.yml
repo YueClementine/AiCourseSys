@@ -1,11 +1,10 @@
 spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    name: test
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: Clement1999
 
 
-
-
-
-#jwt 相关设计
-jwt:
-  header:Authorization
-  base64-secret:yue
-  token-validity-in-seconds:14400000
