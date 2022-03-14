@@ -16,4 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("查询"+s);
         return new UserDo("admin","$2a$10$WtN/BQbwY8dI0me.JsLxP.yyGePyTMg3bi3GZeRogowB4ZuoL1zrK", AuthorityUtils.commaSeparatedStringToAuthorityList("user,ROLE_admin"));
     }
+
+
 }
