@@ -1,24 +1,24 @@
 package com.yuebing.aicoursesys.service;
 
+import com.yuebing.aicoursesys.dao.UserMapper;
 import com.yuebing.aicoursesys.domain.User;
-import com.yuebing.aicoursesys.mapper.UserMapper;
+import com.yuebing.aicoursesys.domain.UserExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserSearchService {
-    @Resource
+
+    @Autowired
     private UserMapper userMapper;
 
-    public void insertUser() {
-        User user = new User();
-        user.setUsername("y");
-        user.setPassword("shsh");
-        user.setUserid(2018);
-        user.setRole(0);
-        user.setSex(1);
-        userMapper.insertSelective(user);
-
+    public List<User> searchUser() {
+        UserExample userExample = new UserExample();
+        userExample.or().andSexEqualTo(1);
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList;
     }
+
 }
