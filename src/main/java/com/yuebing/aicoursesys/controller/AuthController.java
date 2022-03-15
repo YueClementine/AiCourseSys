@@ -22,9 +22,9 @@ public class AuthController {
         return r;
     }
 
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('teacher')")
     @RequestMapping("/del")
-    public String del(){
+    public String del() {
         return "删除成功";
     }
 
