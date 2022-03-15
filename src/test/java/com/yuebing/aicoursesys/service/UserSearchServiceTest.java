@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 
@@ -18,7 +19,9 @@ class UserSearchServiceTest {
     @Test
     public void inserttest() {
 //        userSearchService.insertUser();
-        log.info(userSearchService.searchUser().toString());
+        String encode = new BCryptPasswordEncoder().encode("123456");
+        log.info(encode);
+
 
     }
 
