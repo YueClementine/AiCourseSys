@@ -35,7 +35,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        ////如果在前端测试时出现跨域问题，到收藏的博客里面看一看
 
         String requestUrl = httpServletRequest.getRequestURI();
 
