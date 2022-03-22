@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuebing.aicoursesys.dao.UserMapper">
+<mapper namespace="com.yuebing.aicoursesys.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -108,15 +108,20 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yuebing.aicoursesys.domain.User" useGeneratedKeys="true">
-    insert into user (userid, username, `password`, 
-      sex, `role`)
-    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{role,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.User">
+    insert into user (id, userid, username, 
+      `password`, sex, `role`
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yuebing.aicoursesys.domain.User" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userid != null">
         userid,
       </if>
@@ -134,8 +139,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=BIGINT},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
@@ -164,7 +172,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userid != null">
-        userid = #{record.userid,jdbcType=INTEGER},
+        userid = #{record.userid,jdbcType=BIGINT},
       </if>
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
@@ -186,7 +194,7 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      userid = #{record.userid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=BIGINT},
       username = #{record.username,jdbcType=VARCHAR},
       `password` = #{record.password,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
@@ -199,7 +207,7 @@
     update user
     <set>
       <if test="userid != null">
-        userid = #{userid,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=BIGINT},
       </if>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
@@ -218,7 +226,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.User">
     update user
-    set userid = #{userid,jdbcType=INTEGER},
+    set userid = #{userid,jdbcType=BIGINT},
       username = #{username,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},

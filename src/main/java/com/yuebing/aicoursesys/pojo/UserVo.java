@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserVo {
     private Integer id;
 
-    private Integer userid;
+    private Long userid;
 
     private String username;
 

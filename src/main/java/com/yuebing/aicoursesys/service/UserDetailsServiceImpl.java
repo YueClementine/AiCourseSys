@@ -1,8 +1,9 @@
 package com.yuebing.aicoursesys.service;
 
-import com.yuebing.aicoursesys.dao.UserMapper;
+
 import com.yuebing.aicoursesys.domain.User;
 import com.yuebing.aicoursesys.domain.UserExample;
+import com.yuebing.aicoursesys.mapper.UserMapper;
 import com.yuebing.aicoursesys.pojo.UserDo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;

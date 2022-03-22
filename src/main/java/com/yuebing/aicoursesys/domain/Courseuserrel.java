@@ -8,7 +8,7 @@ import lombok.Data;
  * 
  */
 @Data
-public class CourseUserRel implements Serializable {
+public class Courseuserrel implements Serializable {
     private Integer id;
 
     private Integer courseid;

@@ -1,12 +1,14 @@
-package com.yuebing.aicoursesys.dao;
+package com.yuebing.aicoursesys.mapper;
 
 import com.yuebing.aicoursesys.domain.User;
 import com.yuebing.aicoursesys.domain.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface UserMapper {
     long countByExample(UserExample example);
 

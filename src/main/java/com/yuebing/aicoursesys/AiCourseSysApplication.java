@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
-@MapperScan("com.yuebing.aicoursesys.dao")
+@MapperScan("com.yuebing.aicoursesys.mapper")
 public class AiCourseSysApplication {
 
     public static void main(String[] args) {

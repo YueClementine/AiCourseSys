@@ -3,7 +3,7 @@ package com.yuebing.aicoursesys.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseUserRelExample {
+public class CourseuserrelExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -14,7 +14,7 @@ public class CourseUserRelExample {
 
     private Long offset;
 
-    public CourseUserRelExample() {
+    public CourseuserrelExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
