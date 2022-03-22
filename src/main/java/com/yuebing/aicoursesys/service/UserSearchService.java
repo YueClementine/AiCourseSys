@@ -21,4 +21,11 @@ public class UserSearchService {
         return userList;
     }
 
+    public Integer searchRoleByUsername(String username) {
+        UserExample userExample = new UserExample();
+        userExample.or().andUsernameEqualTo(username);
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList.get(0).getRole();
+    }
+
 }

@@ -2,8 +2,11 @@ package com.yuebing.aicoursesys.security;
 
 
 import com.alibaba.fastjson.JSON;
+import com.yuebing.aicoursesys.dao.UserMapper;
+import com.yuebing.aicoursesys.domain.UserExample;
 import com.yuebing.aicoursesys.pojo.ResultCodeDTO;
 import com.yuebing.aicoursesys.pojo.ResultDTO;
+import com.yuebing.aicoursesys.service.UserSearchService;
 import com.yuebing.aicoursesys.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -28,12 +31,17 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Resource
     private JwtTokenUtil jwtTokenUtil;
 
+    @Resource
+    private UserSearchService userSearchService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         //生成token
         final String realToken = jwtTokenUtil.generateToken(authentication.getName());
+        final Integer role = userSearchService.searchRoleByUsername(jwtTokenUtil.getUsernameFromToken(realToken));
         HashMap<String,Object> map = new HashMap<>();
         map.put("token", realToken);
+        map.put("role", role);
         ResultDTO r = new ResultDTO();
         r.code(ResultCodeDTO.SUCCESS).message("登录成功").data(map);
         log.info("登录成功");

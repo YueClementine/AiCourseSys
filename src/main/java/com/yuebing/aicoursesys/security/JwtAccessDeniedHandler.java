@@ -24,7 +24,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         ResultDTO r = new ResultDTO();
         r.code(ResultCodeDTO.FORBIDDEN).message("权限不足");
         log.error("权限不足");
-        String json =  JSON.toJSONString(r);
+        String json = JSON.toJSONString(r);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(json);
     }
