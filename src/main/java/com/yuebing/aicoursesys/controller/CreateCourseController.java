@@ -1,5 +1,6 @@
 package com.yuebing.aicoursesys.controller;
 
+import com.yuebing.aicoursesys.domain.Course;
 import com.yuebing.aicoursesys.domain.Courseuserrel;
 import com.yuebing.aicoursesys.entity.ResponseBean;
 import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
@@ -27,6 +28,11 @@ public class CreateCourseController {
 
         if (courseuserrel.getRole() == 0) {
             courseuserrel.setUsername(userSearchService.searchUsernameByuserid(courseuserrel.getUserid()));
+        } else {
+            Course course = new Course();
+            course.setCourseid(courseuserrel.getCourseid());
+            course.setCoursename(courseuserrel.getCoursename());
+            createCourseService.storeCourse(course);
         }
         if (createCourseService.storeCourseUserRel(courseuserrel))
             return new ResponseBean(200, "创建成功", courseuserrel);

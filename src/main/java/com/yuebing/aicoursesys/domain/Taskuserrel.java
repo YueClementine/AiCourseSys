@@ -8,23 +8,14 @@ import lombok.Data;
  * 
  */
 @Data
-public class Courseuserrel implements Serializable {
+public class Taskuserrel implements Serializable {
     private Integer id;
 
-    private Integer courseid;
+    private Integer taskid;
 
     private Long userid;
 
-    private Integer rate;
-
-    private String username;
-
-    /**
-     * 配合接口加一个课程名
-     */
     private String coursename;
-
-    private Integer role;
 
     private static final long serialVersionUID = 1L;
 }
