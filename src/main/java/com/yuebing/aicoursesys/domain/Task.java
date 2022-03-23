@@ -17,5 +17,7 @@ public class Task implements Serializable {
 
     private String coursename;
 
+    private String title;
+
     private static final long serialVersionUID = 1L;
 }

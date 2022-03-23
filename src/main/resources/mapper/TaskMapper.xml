@@ -6,6 +6,7 @@
     <result column="task" jdbcType="VARCHAR" property="task" />
     <result column="courseid" jdbcType="INTEGER" property="courseid" />
     <result column="coursename" jdbcType="VARCHAR" property="coursename" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    taskid, task, courseid, coursename
+    taskid, task, courseid, coursename, title
   </sql>
   <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.TaskExample" resultMap="BaseResultMap">
     select
@@ -108,9 +109,9 @@
   </delete>
   <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Task">
     insert into task (taskid, task, courseid, 
-      coursename)
+      coursename, title)
     values (#{taskid,jdbcType=INTEGER}, #{task,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER}, 
-      #{coursename,jdbcType=VARCHAR})
+      #{coursename,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Task">
     insert into task
@@ -127,6 +128,9 @@
       <if test="coursename != null">
         coursename,
       </if>
+      <if test="title != null">
+        title,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="taskid != null">
@@ -140,6 +144,9 @@
       </if>
       <if test="coursename != null">
         #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -164,6 +171,9 @@
       <if test="record.coursename != null">
         coursename = #{record.coursename,jdbcType=VARCHAR},
       </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -174,7 +184,8 @@
     set taskid = #{record.taskid,jdbcType=INTEGER},
       task = #{record.task,jdbcType=VARCHAR},
       courseid = #{record.courseid,jdbcType=INTEGER},
-      coursename = #{record.coursename,jdbcType=VARCHAR}
+      coursename = #{record.coursename,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -191,6 +202,9 @@
       <if test="coursename != null">
         coursename = #{coursename,jdbcType=VARCHAR},
       </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
     </set>
     where taskid = #{taskid,jdbcType=INTEGER}
   </update>
@@ -198,7 +212,8 @@
     update task
     set task = #{task,jdbcType=VARCHAR},
       courseid = #{courseid,jdbcType=INTEGER},
-      coursename = #{coursename,jdbcType=VARCHAR}
+      coursename = #{coursename,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
     where taskid = #{taskid,jdbcType=INTEGER}
   </update>
 </mapper>

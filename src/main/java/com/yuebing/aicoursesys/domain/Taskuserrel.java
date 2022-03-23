@@ -17,5 +17,7 @@ public class Taskuserrel implements Serializable {
 
     private String coursename;
 
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
 }
