@@ -11,7 +11,10 @@ public class CreateCourseService {
     @Resource
     private CourseuserrelMapper courseuserrelMapper;
 
+
+
     public Boolean storeCourseUserRel(Courseuserrel courseuserrel) {
+
         return courseuserrelMapper.insertSelective(courseuserrel) != 0;
 
     }

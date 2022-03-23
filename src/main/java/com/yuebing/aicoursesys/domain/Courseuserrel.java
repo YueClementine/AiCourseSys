@@ -19,5 +19,7 @@ public class Courseuserrel implements Serializable {
 
     private String username;
 
+    private Integer role;
+
     private static final long serialVersionUID = 1L;
 }

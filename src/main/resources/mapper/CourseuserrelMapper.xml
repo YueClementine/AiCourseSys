@@ -7,6 +7,7 @@
     <result column="userid" jdbcType="BIGINT" property="userid" />
     <result column="rate" jdbcType="INTEGER" property="rate" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="role" jdbcType="INTEGER" property="role" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, courseid, userid, rate, username
+    id, courseid, userid, rate, username, `role`
   </sql>
   <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.CourseuserrelExample" resultMap="BaseResultMap">
     select
@@ -109,9 +110,11 @@
   </delete>
   <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Courseuserrel">
     insert into courseuserrel (id, courseid, userid, 
-      rate, username)
+      rate, username, `role`
+      )
     values (#{id,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, 
-      #{rate,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR})
+      #{rate,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Courseuserrel">
     insert into courseuserrel
@@ -131,6 +134,9 @@
       <if test="username != null">
         username,
       </if>
+      <if test="role != null">
+        `role`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -147,6 +153,9 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -174,6 +183,9 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.role != null">
+        `role` = #{record.role,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -185,7 +197,8 @@
       courseid = #{record.courseid,jdbcType=INTEGER},
       userid = #{record.userid,jdbcType=BIGINT},
       rate = #{record.rate,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR}
+      username = #{record.username,jdbcType=VARCHAR},
+      `role` = #{record.role,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,6 +218,9 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="role != null">
+        `role` = #{role,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -213,7 +229,8 @@
     set courseid = #{courseid,jdbcType=INTEGER},
       userid = #{userid,jdbcType=BIGINT},
       rate = #{rate,jdbcType=INTEGER},
-      username = #{username,jdbcType=VARCHAR}
+      username = #{username,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

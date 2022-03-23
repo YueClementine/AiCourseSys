@@ -28,4 +28,11 @@ public class UserSearchService {
         return userList.get(0);
     }
 
+    public String searchUsernameByuserid(long userid) {
+        UserExample userExample = new UserExample();
+        userExample.or().andUseridEqualTo(userid);
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList.get(0).getUsername();
+    }
+
 }
