@@ -113,7 +113,7 @@
     values (#{taskid,jdbcType=INTEGER}, #{task,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER}, 
       #{coursename,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Task">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="taskid" parameterType="com.yuebing.aicoursesys.domain.Task">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskid != null">
