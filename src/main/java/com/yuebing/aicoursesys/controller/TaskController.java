@@ -1,16 +1,11 @@
 package com.yuebing.aicoursesys.controller;
 
-import com.yuebing.aicoursesys.domain.Course;
-import com.yuebing.aicoursesys.domain.CourseExample;
-import com.yuebing.aicoursesys.domain.Courseuserrel;
-import com.yuebing.aicoursesys.domain.CourseuserrelExample;
+import com.yuebing.aicoursesys.domain.*;
 import com.yuebing.aicoursesys.entity.ResponseBean;
 import com.yuebing.aicoursesys.mapper.CourseMapper;
 import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.yuebing.aicoursesys.service.TaskService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,6 +20,9 @@ public class TaskController {
 
     @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private TaskService taskService;
 
     @GetMapping("/getCourseByTeacherId")
     public List<Course> getCourseByTeacherId(Long teacherid) {
@@ -41,8 +39,11 @@ public class TaskController {
     }
 
     @PostMapping("/createTask")
-    public ResponseBean createTask(){
-        return null;
+    public ResponseBean createTask(@RequestBody Task task) {
+        if (taskService.storeTask(task)) {
+            return new ResponseBean(200, "创建成功", task);
+        }
+        return new ResponseBean(400, "创建失败", task);
     }
 
 
