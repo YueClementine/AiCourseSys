@@ -66,10 +66,12 @@ public class TaskService {
         return taskVOS;
     }
 
-    public Task getTaskByTaskid(int taskid) {
-        TaskExample taskExample = new TaskExample();
-        taskExample.or().andTaskidEqualTo(taskid);
-        return taskMapper.selectByExample(taskExample).get(0);
+    public Boolean setTaskStatus(long userid, int taskid) {
+        TaskuserrelExample taskuserrelExample = new TaskuserrelExample();
+        taskuserrelExample.or().andTaskidEqualTo(taskid).andUseridEqualTo(userid);
+        Taskuserrel taskuserrel = new Taskuserrel();
+        taskuserrel.setStatus(1);
+        return taskuserrelMapper.updateByExampleSelective(taskuserrel, taskuserrelExample) != 0;
     }
 
 }

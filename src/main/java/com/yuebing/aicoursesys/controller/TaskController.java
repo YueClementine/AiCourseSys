@@ -55,6 +55,9 @@ public class TaskController {
         return taskService.getTasksByStudentId(studentid);
     }
 
-
+    @GetMapping("/setTaskStatus")
+    public String setTaskStatus(Long userid, int taskid) {
+        return taskService.setTaskStatus(userid, taskid).toString();
+    }
 
 }
