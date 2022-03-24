@@ -4,6 +4,7 @@ import com.yuebing.aicoursesys.domain.*;
 import com.yuebing.aicoursesys.entity.ResponseBean;
 import com.yuebing.aicoursesys.mapper.CourseMapper;
 import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
+import com.yuebing.aicoursesys.pojo.TaskVO;
 import com.yuebing.aicoursesys.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class TaskController {
     @Resource
     private TaskService taskService;
 
+
     @GetMapping("/getCourseByTeacherId")
     public List<Course> getCourseByTeacherId(Long teacherid) {
         CourseuserrelExample courseuserrelExample = new CourseuserrelExample();
@@ -41,10 +43,18 @@ public class TaskController {
     @PostMapping("/createTask")
     public ResponseBean createTask(@RequestBody Task task) {
         if (taskService.storeTask(task)) {
+            taskService.initTaskUserRel(task);
             return new ResponseBean(200, "创建成功", task);
         }
         return new ResponseBean(400, "创建失败", task);
     }
+
+    @GetMapping("/getTaskByUserId")
+    public List<TaskVO> getTaskByUserId(Long studentid) {
+
+        return taskService.getTasksByStudentId(studentid);
+    }
+
 
 
 }
