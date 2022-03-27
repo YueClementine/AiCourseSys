@@ -18,6 +18,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.annotation.Resource;
 
@@ -44,6 +46,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationTokenFilter();
     }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource(){
+        return httpServletRequest -> {
+            CorsConfiguration cfg = new CorsConfiguration();
+            cfg.addAllowedHeader("*");
+            cfg.addAllowedMethod("*");
+            cfg.addAllowedOrigin("http://localhost:8080");
+            cfg.setAllowCredentials(true);
+            cfg.checkOrigin("http://localhost:8080");
+            return cfg;
+        };
+    }
 
 
 
@@ -65,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //token的验证方式不需要开启csrf的防护
                 .csrf().disable()
+
                 // 自定义认证失败类
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 // 自定义权限不足处理类
@@ -86,5 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // disable page caching
         httpSecurity.headers().cacheControl();
+        //允许跨域
+        httpSecurity.cors();
     }
 }

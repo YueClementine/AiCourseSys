@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuebing.aicoursesys.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Video">
+    <id column="videoid" jdbcType="INTEGER" property="videoid" />
+    <result column="videoname" jdbcType="VARCHAR" property="videoname" />
+    <result column="videoaddress" jdbcType="VARCHAR" property="videoaddress" />
+    <result column="videotag" jdbcType="INTEGER" property="videotag" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    videoid, videoname, videoaddress, videotag, userid
+  </sql>
+  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.VideoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from video
+    where videoid = #{videoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from video
+    where videoid = #{videoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.VideoExample">
+    delete from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Video">
+    insert into video (videoid, videoname, videoaddress, 
+      videotag, userid)
+    values (#{videoid,jdbcType=INTEGER}, #{videoname,jdbcType=VARCHAR}, #{videoaddress,jdbcType=VARCHAR}, 
+      #{videotag,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Video">
+    insert into video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoid != null">
+        videoid,
+      </if>
+      <if test="videoname != null">
+        videoname,
+      </if>
+      <if test="videoaddress != null">
+        videoaddress,
+      </if>
+      <if test="videotag != null">
+        videotag,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoid != null">
+        #{videoid,jdbcType=INTEGER},
+      </if>
+      <if test="videoname != null">
+        #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videoaddress != null">
+        #{videoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="videotag != null">
+        #{videotag,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.VideoExample" resultType="java.lang.Long">
+    select count(*) from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update video
+    <set>
+      <if test="record.videoid != null">
+        videoid = #{record.videoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.videoname != null">
+        videoname = #{record.videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoaddress != null">
+        videoaddress = #{record.videoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videotag != null">
+        videotag = #{record.videotag,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update video
+    set videoid = #{record.videoid,jdbcType=INTEGER},
+      videoname = #{record.videoname,jdbcType=VARCHAR},
+      videoaddress = #{record.videoaddress,jdbcType=VARCHAR},
+      videotag = #{record.videotag,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Video">
+    update video
+    <set>
+      <if test="videoname != null">
+        videoname = #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videoaddress != null">
+        videoaddress = #{videoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="videotag != null">
+        videotag = #{videotag,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where videoid = #{videoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Video">
+    update video
+    set videoname = #{videoname,jdbcType=VARCHAR},
+      videoaddress = #{videoaddress,jdbcType=VARCHAR},
+      videotag = #{videotag,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=BIGINT}
+    where videoid = #{videoid,jdbcType=INTEGER}
+  </update>
+</mapper>
