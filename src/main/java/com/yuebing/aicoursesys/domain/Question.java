@@ -11,7 +11,7 @@ import lombok.Data;
 public class Question implements Serializable {
     private Integer questionid;
 
-    private String questionContent;
+    private String questioncontent;
 
     private String opa;
 

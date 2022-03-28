@@ -59,7 +59,7 @@ public class VideoUploadController {
             //正确保存视频则设置返回码为200
             resultMap.put("resCode","200");
             //返回视频保存路径
-            resultMap.put("VideoUrl",SavePath + "/" + newVideoName);
+            resultMap.put("VideoUrl", newVideoName);
             return resultMap;
 
         }catch (Exception e){

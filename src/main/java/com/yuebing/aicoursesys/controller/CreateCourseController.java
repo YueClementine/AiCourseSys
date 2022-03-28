@@ -32,6 +32,7 @@ public class CreateCourseController {
             Course course = new Course();
             course.setCourseid(courseuserrel.getCourseid());
             course.setCoursename(courseuserrel.getCoursename());
+            course.setUserid(courseuserrel.getUserid());
             createCourseService.storeCourse(course);
         }
         if (createCourseService.storeCourseUserRel(courseuserrel))

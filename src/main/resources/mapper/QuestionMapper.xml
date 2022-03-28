@@ -3,7 +3,7 @@
 <mapper namespace="com.yuebing.aicoursesys.mapper.QuestionMapper">
   <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Question">
     <id column="questionid" jdbcType="INTEGER" property="questionid" />
-    <result column="question content" jdbcType="VARCHAR" property="questionContent" />
+    <result column="questioncontent" jdbcType="VARCHAR" property="questioncontent" />
     <result column="opa" jdbcType="VARCHAR" property="opa" />
     <result column="opb" jdbcType="VARCHAR" property="opb" />
     <result column="opc" jdbcType="VARCHAR" property="opc" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    questionid, `question content`, opa, opb, opc, opd, correctop, questiontag, userid, 
+    questionid, questioncontent, opa, opb, opc, opd, correctop, questiontag, userid, 
     examid
   </sql>
   <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.QuestionExample" resultMap="BaseResultMap">
@@ -114,11 +114,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Question">
-    insert into question (questionid, `question content`, opa, 
+    insert into question (questionid, questioncontent, opa, 
       opb, opc, opd, correctop, 
       questiontag, userid, examid
       )
-    values (#{questionid,jdbcType=INTEGER}, #{questionContent,jdbcType=VARCHAR}, #{opa,jdbcType=VARCHAR}, 
+    values (#{questionid,jdbcType=INTEGER}, #{questioncontent,jdbcType=VARCHAR}, #{opa,jdbcType=VARCHAR}, 
       #{opb,jdbcType=VARCHAR}, #{opc,jdbcType=VARCHAR}, #{opd,jdbcType=VARCHAR}, #{correctop,jdbcType=INTEGER}, 
       #{questiontag,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{examid,jdbcType=INTEGER}
       )
@@ -129,8 +129,8 @@
       <if test="questionid != null">
         questionid,
       </if>
-      <if test="questionContent != null">
-        `question content`,
+      <if test="questioncontent != null">
+        questioncontent,
       </if>
       <if test="opa != null">
         opa,
@@ -161,8 +161,8 @@
       <if test="questionid != null">
         #{questionid,jdbcType=INTEGER},
       </if>
-      <if test="questionContent != null">
-        #{questionContent,jdbcType=VARCHAR},
+      <if test="questioncontent != null">
+        #{questioncontent,jdbcType=VARCHAR},
       </if>
       <if test="opa != null">
         #{opa,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@
       <if test="record.questionid != null">
         questionid = #{record.questionid,jdbcType=INTEGER},
       </if>
-      <if test="record.questionContent != null">
-        `question content` = #{record.questionContent,jdbcType=VARCHAR},
+      <if test="record.questioncontent != null">
+        questioncontent = #{record.questioncontent,jdbcType=VARCHAR},
       </if>
       <if test="record.opa != null">
         opa = #{record.opa,jdbcType=VARCHAR},
@@ -237,7 +237,7 @@
   <update id="updateByExample" parameterType="map">
     update question
     set questionid = #{record.questionid,jdbcType=INTEGER},
-      `question content` = #{record.questionContent,jdbcType=VARCHAR},
+      questioncontent = #{record.questioncontent,jdbcType=VARCHAR},
       opa = #{record.opa,jdbcType=VARCHAR},
       opb = #{record.opb,jdbcType=VARCHAR},
       opc = #{record.opc,jdbcType=VARCHAR},
@@ -253,8 +253,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Question">
     update question
     <set>
-      <if test="questionContent != null">
-        `question content` = #{questionContent,jdbcType=VARCHAR},
+      <if test="questioncontent != null">
+        questioncontent = #{questioncontent,jdbcType=VARCHAR},
       </if>
       <if test="opa != null">
         opa = #{opa,jdbcType=VARCHAR},
@@ -285,7 +285,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Question">
     update question
-    set `question content` = #{questionContent,jdbcType=VARCHAR},
+    set questioncontent = #{questioncontent,jdbcType=VARCHAR},
       opa = #{opa,jdbcType=VARCHAR},
       opb = #{opb,jdbcType=VARCHAR},
       opc = #{opc,jdbcType=VARCHAR},

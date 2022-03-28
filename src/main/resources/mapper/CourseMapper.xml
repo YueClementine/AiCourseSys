@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Course">
     <id column="courseid" jdbcType="INTEGER" property="courseid" />
     <result column="coursename" jdbcType="VARCHAR" property="coursename" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    courseid, coursename
+    courseid, coursename, userid
   </sql>
   <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.CourseExample" resultMap="BaseResultMap">
     select
@@ -105,8 +106,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Course">
-    insert into course (courseid, coursename)
-    values (#{courseid,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR})
+    insert into course (courseid, coursename, userid
+      )
+    values (#{courseid,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Course">
     insert into course
@@ -117,6 +120,9 @@
       <if test="coursename != null">
         coursename,
       </if>
+      <if test="userid != null">
+        userid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="courseid != null">
@@ -124,6 +130,9 @@
       </if>
       <if test="coursename != null">
         #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -142,6 +151,9 @@
       <if test="record.coursename != null">
         coursename = #{record.coursename,jdbcType=VARCHAR},
       </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -150,7 +162,8 @@
   <update id="updateByExample" parameterType="map">
     update course
     set courseid = #{record.courseid,jdbcType=INTEGER},
-      coursename = #{record.coursename,jdbcType=VARCHAR}
+      coursename = #{record.coursename,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,12 +174,16 @@
       <if test="coursename != null">
         coursename = #{coursename,jdbcType=VARCHAR},
       </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
     </set>
     where courseid = #{courseid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Course">
     update course
-    set coursename = #{coursename,jdbcType=VARCHAR}
+    set coursename = #{coursename,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=BIGINT}
     where courseid = #{courseid,jdbcType=INTEGER}
   </update>
 </mapper>

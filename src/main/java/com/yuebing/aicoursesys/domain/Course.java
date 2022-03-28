@@ -13,5 +13,7 @@ public class Course implements Serializable {
 
     private String coursename;
 
+    private Long userid;
+
     private static final long serialVersionUID = 1L;
 }
