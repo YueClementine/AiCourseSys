@@ -253,6 +253,126 @@ public class ExamExample {
             addCriterion("examname not between", value1, value2, "examname");
             return (Criteria) this;
         }
+
+        public Criteria andIspublishIsNull() {
+            addCriterion("ispublish is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishIsNotNull() {
+            addCriterion("ispublish is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishEqualTo(Integer value) {
+            addCriterion("ispublish =", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishNotEqualTo(Integer value) {
+            addCriterion("ispublish <>", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishGreaterThan(Integer value) {
+            addCriterion("ispublish >", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ispublish >=", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishLessThan(Integer value) {
+            addCriterion("ispublish <", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishLessThanOrEqualTo(Integer value) {
+            addCriterion("ispublish <=", value, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishIn(List<Integer> values) {
+            addCriterion("ispublish in", values, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishNotIn(List<Integer> values) {
+            addCriterion("ispublish not in", values, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishBetween(Integer value1, Integer value2) {
+            addCriterion("ispublish between", value1, value2, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspublishNotBetween(Integer value1, Integer value2) {
+            addCriterion("ispublish not between", value1, value2, "ispublish");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridIsNull() {
+            addCriterion("teacherid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridIsNotNull() {
+            addCriterion("teacherid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridEqualTo(Long value) {
+            addCriterion("teacherid =", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridNotEqualTo(Long value) {
+            addCriterion("teacherid <>", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridGreaterThan(Long value) {
+            addCriterion("teacherid >", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridGreaterThanOrEqualTo(Long value) {
+            addCriterion("teacherid >=", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridLessThan(Long value) {
+            addCriterion("teacherid <", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridLessThanOrEqualTo(Long value) {
+            addCriterion("teacherid <=", value, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridIn(List<Long> values) {
+            addCriterion("teacherid in", values, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridNotIn(List<Long> values) {
+            addCriterion("teacherid not in", values, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridBetween(Long value1, Long value2) {
+            addCriterion("teacherid between", value1, value2, "teacherid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeacheridNotBetween(Long value1, Long value2) {
+            addCriterion("teacherid not between", value1, value2, "teacherid");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -36,6 +36,7 @@ public class ExamCreateController {
     @Autowired
     private UserSearchService userSearchService;
 
+
     @CrossOrigin
     @ResponseBody
     @PostMapping(value = "createExam")
@@ -44,7 +45,7 @@ public class ExamCreateController {
 
         long userid = userSearchService.searchUseridByToken(token);
 
-        int examid = examService.storeExam(examName);
+        int examid = examService.storeExam(userid, examName);
 
 
         List<Question> questions = JSON.parseArray(questionlistjson, Question.class);
@@ -64,6 +65,34 @@ public class ExamCreateController {
         long userid = userSearchService.searchUseridByToken(token);
         return examService.searchExamUserRelByUserid(userid);
 
+    }
+
+    @GetMapping(value = "getQuestionList")
+    public List<Question> getQuestionList(int examid) {
+        return questionService.getQuestionsByExamId(examid);
+    }
+
+    @GetMapping(value = "publishexam")
+    public Boolean publishExam(int examid, HttpServletRequest request) {
+        long teacherid = userSearchService.searchUseridByToken(request.getHeader("Authorization"));
+
+        return examService.publishExam(examid, teacherid);
+
+
+    }
+
+    @GetMapping(value = "teacherGetExamList")
+    public List<Exam> teacherGetExamList(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        long userid = userSearchService.searchUseridByToken(token);
+        return examService.teacherGetExamList(userid);
+    }
+
+    @GetMapping(value = "commitExam")
+    public Boolean commitExam(int grade,int examid, HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        long userid = userSearchService.searchUseridByToken(token);
+        return examService.commitExam(userid, examid, grade);
     }
 
 }

@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Exam">
     <id column="examid" jdbcType="INTEGER" property="examid" />
     <result column="examname" jdbcType="VARCHAR" property="examname" />
+    <result column="ispublish" jdbcType="INTEGER" property="ispublish" />
+    <result column="teacherid" jdbcType="BIGINT" property="teacherid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    examid, examname
+    examid, examname, ispublish, teacherid
   </sql>
   <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.ExamExample" resultMap="BaseResultMap">
     select
@@ -105,8 +107,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Exam">
-    insert into exam (examid, examname)
-    values (#{examid,jdbcType=INTEGER}, #{examname,jdbcType=VARCHAR})
+    insert into exam (examid, examname, ispublish, 
+      teacherid)
+    values (#{examid,jdbcType=INTEGER}, #{examname,jdbcType=VARCHAR}, #{ispublish,jdbcType=INTEGER}, 
+      #{teacherid,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Exam">
     insert into exam
@@ -117,6 +121,12 @@
       <if test="examname != null">
         examname,
       </if>
+      <if test="ispublish != null">
+        ispublish,
+      </if>
+      <if test="teacherid != null">
+        teacherid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="examid != null">
@@ -124,6 +134,12 @@
       </if>
       <if test="examname != null">
         #{examname,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublish != null">
+        #{ispublish,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -142,6 +158,12 @@
       <if test="record.examname != null">
         examname = #{record.examname,jdbcType=VARCHAR},
       </if>
+      <if test="record.ispublish != null">
+        ispublish = #{record.ispublish,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherid != null">
+        teacherid = #{record.teacherid,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -150,7 +172,9 @@
   <update id="updateByExample" parameterType="map">
     update exam
     set examid = #{record.examid,jdbcType=INTEGER},
-      examname = #{record.examname,jdbcType=VARCHAR}
+      examname = #{record.examname,jdbcType=VARCHAR},
+      ispublish = #{record.ispublish,jdbcType=INTEGER},
+      teacherid = #{record.teacherid,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,12 +185,20 @@
       <if test="examname != null">
         examname = #{examname,jdbcType=VARCHAR},
       </if>
+      <if test="ispublish != null">
+        ispublish = #{ispublish,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        teacherid = #{teacherid,jdbcType=BIGINT},
+      </if>
     </set>
     where examid = #{examid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Exam">
     update exam
-    set examname = #{examname,jdbcType=VARCHAR}
+    set examname = #{examname,jdbcType=VARCHAR},
+      ispublish = #{ispublish,jdbcType=INTEGER},
+      teacherid = #{teacherid,jdbcType=BIGINT}
     where examid = #{examid,jdbcType=INTEGER}
   </update>
 </mapper>
