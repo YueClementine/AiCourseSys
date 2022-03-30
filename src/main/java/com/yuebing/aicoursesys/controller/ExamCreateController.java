@@ -2,11 +2,13 @@ package com.yuebing.aicoursesys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.yuebing.aicoursesys.domain.Exam;
+import com.yuebing.aicoursesys.domain.ExamUserRel;
 import com.yuebing.aicoursesys.domain.Question;
 import com.yuebing.aicoursesys.domain.UserExample;
 import com.yuebing.aicoursesys.mapper.UserMapper;
 import com.yuebing.aicoursesys.service.ExamService;
 import com.yuebing.aicoursesys.service.QuestionService;
+import com.yuebing.aicoursesys.service.UserSearchService;
 import com.yuebing.aicoursesys.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
 @Slf4j
 @RestController
 public class ExamCreateController {
@@ -30,15 +33,16 @@ public class ExamCreateController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private UserSearchService userSearchService;
+
     @CrossOrigin
     @ResponseBody
     @PostMapping(value = "createExam")
     public Boolean createExam(@RequestParam("examname") String examName, @RequestParam("questions") String questionlistjson, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        UserExample userExample = new UserExample();
-        userExample.or().andUsernameEqualTo(username);
-        long userid = userMapper.selectByExample(userExample).get(0).getUserid();
+
+        long userid = userSearchService.searchUseridByToken(token);
 
         int examid = examService.storeExam(examName);
 
@@ -53,4 +57,13 @@ public class ExamCreateController {
 
         return true;
     }
+
+    @GetMapping(value = "getExamListByToken")
+    public List<ExamUserRel> getExamUserRelListByToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        long userid = userSearchService.searchUseridByToken(token);
+        return examService.searchExamUserRelByUserid(userid);
+
+    }
+
 }

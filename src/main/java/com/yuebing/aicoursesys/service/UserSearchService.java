@@ -1,8 +1,8 @@
 package com.yuebing.aicoursesys.service;
 
 
-import com.yuebing.aicoursesys.domain.User;
-import com.yuebing.aicoursesys.domain.UserExample;
+import com.yuebing.aicoursesys.domain.*;
+import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
 import com.yuebing.aicoursesys.mapper.UserMapper;
 import com.yuebing.aicoursesys.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,9 @@ public class UserSearchService {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private CourseuserrelMapper courseuserrelMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -44,6 +47,16 @@ public class UserSearchService {
         UserExample userExample = new UserExample();
         userExample.or().andUsernameEqualTo(username);
         return userMapper.selectByExample(userExample).get(0).getUserid();
+    }
+
+    public long getTeacherIdByStudent(long studentid) {
+        CourseuserrelExample courseuserrelExample = new CourseuserrelExample();
+        courseuserrelExample.or().andUseridEqualTo(studentid);
+        int courseid = courseuserrelMapper.selectByExample(courseuserrelExample).get(0).getCourseid();
+        CourseuserrelExample courseuserrelExample1 = new CourseuserrelExample();
+        courseuserrelExample1.or().andCourseidEqualTo(courseid).andRoleEqualTo(1);
+        return courseuserrelMapper.selectByExample(courseuserrelExample1).get(0).getUserid();
+
     }
 
 }
