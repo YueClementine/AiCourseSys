@@ -6,9 +6,11 @@ import com.yuebing.aicoursesys.mapper.CourseMapper;
 import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
 import com.yuebing.aicoursesys.mapper.ExamMapper;
 import com.yuebing.aicoursesys.mapper.ExamUserRelMapper;
+import com.yuebing.aicoursesys.pojo.ExamUserRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +26,9 @@ public class ExamService {
 
     @Autowired
     private CourseuserrelMapper courseuserrelMapper;
+
+    @Autowired
+    private UserSearchService userSearchService;
 
     public int storeExam(long teacherid, String examname) {
 
@@ -90,5 +95,22 @@ public class ExamService {
         examUserRel.setGrade(grade);
 
         return examUserRelMapper.updateByExampleSelective(examUserRel, example) != 0;
+    }
+
+    public List<ExamUserRelVO> getGrade(int examid) {
+        ExamUserRelExample example = new ExamUserRelExample();
+        example.or().andExamidEqualTo(examid);
+        List<ExamUserRel> examUserRels = examUserRelMapper.selectByExample(example);
+        List<ExamUserRelVO> examUserRelVOS = new ArrayList<>();
+        examUserRels.forEach(examUserRel -> {
+            String username = userSearchService.searchUsernameByuserid(examUserRel.getUserid());
+            ExamUserRelVO examUserRelVO = new ExamUserRelVO();
+            examUserRelVO.setUserid(examUserRel.getUserid());
+            examUserRelVO.setGrade(examUserRel.getGrade());
+            examUserRelVO.setUsername(username);
+            examUserRelVOS.add(examUserRelVO);
+
+        });
+        return examUserRelVOS;
     }
 }

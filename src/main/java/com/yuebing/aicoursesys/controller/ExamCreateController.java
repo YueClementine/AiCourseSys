@@ -6,6 +6,7 @@ import com.yuebing.aicoursesys.domain.ExamUserRel;
 import com.yuebing.aicoursesys.domain.Question;
 import com.yuebing.aicoursesys.domain.UserExample;
 import com.yuebing.aicoursesys.mapper.UserMapper;
+import com.yuebing.aicoursesys.pojo.ExamUserRelVO;
 import com.yuebing.aicoursesys.service.ExamService;
 import com.yuebing.aicoursesys.service.QuestionService;
 import com.yuebing.aicoursesys.service.UserSearchService;
@@ -93,6 +94,11 @@ public class ExamCreateController {
         String token = request.getHeader("Authorization");
         long userid = userSearchService.searchUseridByToken(token);
         return examService.commitExam(userid, examid, grade);
+    }
+
+    @GetMapping(value = "getGradeByExamid")
+    public List<ExamUserRelVO> getGradeByExamid(int examid) {
+        return examService.getGrade(examid);
     }
 
 }
