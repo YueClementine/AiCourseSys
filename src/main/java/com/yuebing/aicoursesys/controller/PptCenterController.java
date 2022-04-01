@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-public class PptCenterController {
+public class  PptCenterController {
     @Autowired
     private UserSearchService userSearchService;
     @Autowired
