@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuebing.aicoursesys.mapper.TaskMapper">
-  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Task">
-    <id column="taskid" jdbcType="INTEGER" property="taskid" />
-    <result column="task" jdbcType="VARCHAR" property="task" />
-    <result column="courseid" jdbcType="INTEGER" property="courseid" />
-    <result column="coursename" jdbcType="VARCHAR" property="coursename" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
+<mapper namespace="com.yuebing.aicoursesys.mapper.NoteMapper">
+  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Note">
+    <id column="noteid" jdbcType="INTEGER" property="noteid" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="addvideo" jdbcType="INTEGER" property="addvideo" />
     <result column="videoid" jdbcType="INTEGER" property="videoid" />
     <result column="videoname" jdbcType="VARCHAR" property="videoname" />
     <result column="videoaddress" jdbcType="VARCHAR" property="videoaddress" />
     <result column="pptid" jdbcType="INTEGER" property="pptid" />
     <result column="pptname" jdbcType="VARCHAR" property="pptname" />
     <result column="pptaddress" jdbcType="VARCHAR" property="pptaddress" />
-    <result column="addvideo" jdbcType="INTEGER" property="addvideo" />
+    <result column="taskid" jdbcType="INTEGER" property="taskid" />
+    <result column="rate" jdbcType="INTEGER" property="rate" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="addppt" jdbcType="INTEGER" property="addppt" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,16 +77,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    taskid, task, courseid, coursename, title, videoid, videoname, videoaddress, pptid, 
-    pptname, pptaddress, addvideo, addppt
+    noteid, note, addvideo, videoid, videoname, videoaddress, pptid, pptname, pptaddress, 
+    taskid, rate, title, addppt, userid, username
   </sql>
-  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.TaskExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.NoteExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from task
+    from note
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,48 +105,44 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from task
-    where taskid = #{taskid,jdbcType=INTEGER}
+    from note
+    where noteid = #{noteid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from task
-    where taskid = #{taskid,jdbcType=INTEGER}
+    delete from note
+    where noteid = #{noteid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.TaskExample">
-    delete from task
+  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.NoteExample">
+    delete from note
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Task">
-    insert into task (taskid, task, courseid, 
-      coursename, title, videoid, 
-      videoname, videoaddress, pptid, 
-      pptname, pptaddress, addvideo, 
-      addppt)
-    values (#{taskid,jdbcType=INTEGER}, #{task,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER}, 
-      #{coursename,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{videoid,jdbcType=INTEGER}, 
-      #{videoname,jdbcType=VARCHAR}, #{videoaddress,jdbcType=VARCHAR}, #{pptid,jdbcType=INTEGER}, 
-      #{pptname,jdbcType=VARCHAR}, #{pptaddress,jdbcType=VARCHAR}, #{addvideo,jdbcType=INTEGER}, 
-      #{addppt,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Note">
+    insert into note (noteid, note, addvideo, 
+      videoid, videoname, videoaddress, 
+      pptid, pptname, pptaddress, 
+      taskid, rate, title, 
+      addppt, userid, username
+      )
+    values (#{noteid,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, #{addvideo,jdbcType=INTEGER}, 
+      #{videoid,jdbcType=INTEGER}, #{videoname,jdbcType=VARCHAR}, #{videoaddress,jdbcType=VARCHAR}, 
+      #{pptid,jdbcType=INTEGER}, #{pptname,jdbcType=VARCHAR}, #{pptaddress,jdbcType=VARCHAR}, 
+      #{taskid,jdbcType=INTEGER}, #{rate,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{addppt,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="taskid" parameterType="com.yuebing.aicoursesys.domain.Task">
-    insert into task
+  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Note">
+    insert into note
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="taskid != null">
-        taskid,
+      <if test="noteid != null">
+        noteid,
       </if>
-      <if test="task != null">
-        task,
+      <if test="note != null">
+        note,
       </if>
-      <if test="courseid != null">
-        courseid,
-      </if>
-      <if test="coursename != null">
-        coursename,
-      </if>
-      <if test="title != null">
-        title,
+      <if test="addvideo != null">
+        addvideo,
       </if>
       <if test="videoid != null">
         videoid,
@@ -164,28 +162,34 @@
       <if test="pptaddress != null">
         pptaddress,
       </if>
-      <if test="addvideo != null">
-        addvideo,
+      <if test="taskid != null">
+        taskid,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="title != null">
+        title,
       </if>
       <if test="addppt != null">
         addppt,
       </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="taskid != null">
-        #{taskid,jdbcType=INTEGER},
+      <if test="noteid != null">
+        #{noteid,jdbcType=INTEGER},
       </if>
-      <if test="task != null">
-        #{task,jdbcType=VARCHAR},
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
       </if>
-      <if test="courseid != null">
-        #{courseid,jdbcType=INTEGER},
-      </if>
-      <if test="coursename != null">
-        #{coursename,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+      <if test="addvideo != null">
+        #{addvideo,jdbcType=INTEGER},
       </if>
       <if test="videoid != null">
         #{videoid,jdbcType=INTEGER},
@@ -205,37 +209,43 @@
       <if test="pptaddress != null">
         #{pptaddress,jdbcType=VARCHAR},
       </if>
-      <if test="addvideo != null">
-        #{addvideo,jdbcType=INTEGER},
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
       <if test="addppt != null">
         #{addppt,jdbcType=INTEGER},
       </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.TaskExample" resultType="java.lang.Long">
-    select count(*) from task
+  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.NoteExample" resultType="java.lang.Long">
+    select count(*) from note
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update task
+    update note
     <set>
-      <if test="record.taskid != null">
-        taskid = #{record.taskid,jdbcType=INTEGER},
+      <if test="record.noteid != null">
+        noteid = #{record.noteid,jdbcType=INTEGER},
       </if>
-      <if test="record.task != null">
-        task = #{record.task,jdbcType=VARCHAR},
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
       </if>
-      <if test="record.courseid != null">
-        courseid = #{record.courseid,jdbcType=INTEGER},
-      </if>
-      <if test="record.coursename != null">
-        coursename = #{record.coursename,jdbcType=VARCHAR},
-      </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.addvideo != null">
+        addvideo = #{record.addvideo,jdbcType=INTEGER},
       </if>
       <if test="record.videoid != null">
         videoid = #{record.videoid,jdbcType=INTEGER},
@@ -255,11 +265,23 @@
       <if test="record.pptaddress != null">
         pptaddress = #{record.pptaddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.addvideo != null">
-        addvideo = #{record.addvideo,jdbcType=INTEGER},
+      <if test="record.taskid != null">
+        taskid = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rate != null">
+        rate = #{record.rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.addppt != null">
         addppt = #{record.addppt,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -267,38 +289,34 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update task
-    set taskid = #{record.taskid,jdbcType=INTEGER},
-      task = #{record.task,jdbcType=VARCHAR},
-      courseid = #{record.courseid,jdbcType=INTEGER},
-      coursename = #{record.coursename,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
+    update note
+    set noteid = #{record.noteid,jdbcType=INTEGER},
+      note = #{record.note,jdbcType=VARCHAR},
+      addvideo = #{record.addvideo,jdbcType=INTEGER},
       videoid = #{record.videoid,jdbcType=INTEGER},
       videoname = #{record.videoname,jdbcType=VARCHAR},
       videoaddress = #{record.videoaddress,jdbcType=VARCHAR},
       pptid = #{record.pptid,jdbcType=INTEGER},
       pptname = #{record.pptname,jdbcType=VARCHAR},
       pptaddress = #{record.pptaddress,jdbcType=VARCHAR},
-      addvideo = #{record.addvideo,jdbcType=INTEGER},
-      addppt = #{record.addppt,jdbcType=INTEGER}
+      taskid = #{record.taskid,jdbcType=INTEGER},
+      rate = #{record.rate,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      addppt = #{record.addppt,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Task">
-    update task
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Note">
+    update note
     <set>
-      <if test="task != null">
-        task = #{task,jdbcType=VARCHAR},
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
       </if>
-      <if test="courseid != null">
-        courseid = #{courseid,jdbcType=INTEGER},
-      </if>
-      <if test="coursename != null">
-        coursename = #{coursename,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+      <if test="addvideo != null">
+        addvideo = #{addvideo,jdbcType=INTEGER},
       </if>
       <if test="videoid != null">
         videoid = #{videoid,jdbcType=INTEGER},
@@ -318,29 +336,43 @@
       <if test="pptaddress != null">
         pptaddress = #{pptaddress,jdbcType=VARCHAR},
       </if>
-      <if test="addvideo != null">
-        addvideo = #{addvideo,jdbcType=INTEGER},
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="addppt != null">
         addppt = #{addppt,jdbcType=INTEGER},
       </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
     </set>
-    where taskid = #{taskid,jdbcType=INTEGER}
+    where noteid = #{noteid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Task">
-    update task
-    set task = #{task,jdbcType=VARCHAR},
-      courseid = #{courseid,jdbcType=INTEGER},
-      coursename = #{coursename,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Note">
+    update note
+    set note = #{note,jdbcType=VARCHAR},
+      addvideo = #{addvideo,jdbcType=INTEGER},
       videoid = #{videoid,jdbcType=INTEGER},
       videoname = #{videoname,jdbcType=VARCHAR},
       videoaddress = #{videoaddress,jdbcType=VARCHAR},
       pptid = #{pptid,jdbcType=INTEGER},
       pptname = #{pptname,jdbcType=VARCHAR},
       pptaddress = #{pptaddress,jdbcType=VARCHAR},
-      addvideo = #{addvideo,jdbcType=INTEGER},
-      addppt = #{addppt,jdbcType=INTEGER}
-    where taskid = #{taskid,jdbcType=INTEGER}
+      taskid = #{taskid,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      addppt = #{addppt,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR}
+    where noteid = #{noteid,jdbcType=INTEGER}
   </update>
 </mapper>

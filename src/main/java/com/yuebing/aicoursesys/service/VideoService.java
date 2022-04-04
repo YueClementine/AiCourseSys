@@ -27,7 +27,14 @@ public class VideoService {
         int role = userMapper.selectByExample(userExample).get(0).getRole();
         long userid;
         if (role == 0) {
+            VideoExample videoExample = new VideoExample();
+            VideoExample.Criteria c1 = videoExample.createCriteria();
+            c1.andUseridEqualTo(id);
             userid = userSearchService.getTeacherIdByStudent(id);
+            VideoExample.Criteria c2 = videoExample.createCriteria();
+            c2.andUseridEqualTo(userid);
+            videoExample.or(c2);
+            return videoMapper.selectByExample(videoExample);
         }else {
             userid = id;
         }

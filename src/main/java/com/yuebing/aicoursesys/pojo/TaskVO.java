@@ -13,4 +13,24 @@ public class TaskVO {
 
     private Integer status;
 
+
+    private Integer videoid;
+
+    private String videoname;
+
+    private String videoaddress;
+
+    private Integer pptid;
+
+    private String pptname;
+
+    private String pptaddress;
+
+    private Integer addvideo;
+
+    private Integer addppt;
+
+
+
+
 }

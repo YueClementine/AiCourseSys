@@ -59,6 +59,12 @@ public class TaskService {
             taskVO.setTaskid(taskid);
             taskVO.setStatus(taskuserrel.getStatus());
             Task task = taskMapper.selectByPrimaryKey(taskid);
+            taskVO.setAddppt(task.getAddppt());
+            taskVO.setAddvideo(task.getAddvideo());
+            taskVO.setPptaddress(task.getPptaddress());
+            taskVO.setVideoaddress(task.getVideoaddress());
+            taskVO.setPptname(task.getPptname());
+            taskVO.setVideoname(task.getVideoname());
             taskVO.setTask(task.getTask());
             taskVO.setTitle(task.getTitle());
             taskVOS.add(taskVO);

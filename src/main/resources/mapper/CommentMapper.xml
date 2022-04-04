@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuebing.aicoursesys.mapper.DiscussMapper">
-  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Discuss">
-    <id column="discussid" jdbcType="INTEGER" property="discussid" />
-    <result column="topic" jdbcType="VARCHAR" property="topic" />
-    <result column="isTerminated" jdbcType="INTEGER" property="isterminated" />
-    <result column="teacherid" jdbcType="BIGINT" property="teacherid" />
+<mapper namespace="com.yuebing.aicoursesys.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Comment">
+    <id column="commentid" jdbcType="INTEGER" property="commentid" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="noteid" jdbcType="INTEGER" property="noteid" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    discussid, topic, isTerminated, teacherid
+    commentid, `comment`, noteid, userid, username
   </sql>
-  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.DiscussExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.CommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from discuss
+    from comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,76 +94,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from discuss
-    where discussid = #{discussid,jdbcType=INTEGER}
+    from comment
+    where commentid = #{commentid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from discuss
-    where discussid = #{discussid,jdbcType=INTEGER}
+    delete from comment
+    where commentid = #{commentid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.DiscussExample">
-    delete from discuss
+  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.CommentExample">
+    delete from comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Discuss">
-    insert into discuss (discussid, topic, isTerminated, 
-      teacherid)
-    values (#{discussid,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, #{isterminated,jdbcType=INTEGER}, 
-      #{teacherid,jdbcType=BIGINT})
+  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Comment">
+    insert into comment (commentid, `comment`, noteid, 
+      userid, username)
+    values (#{commentid,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{noteid,jdbcType=INTEGER}, 
+      #{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Discuss" useGeneratedKeys="true" keyProperty="discussid">
-    insert into discuss
+  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Comment">
+    insert into comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="discussid != null">
-        discussid,
+      <if test="commentid != null">
+        commentid,
       </if>
-      <if test="topic != null">
-        topic,
+      <if test="comment != null">
+        `comment`,
       </if>
-      <if test="isterminated != null">
-        isTerminated,
+      <if test="noteid != null">
+        noteid,
       </if>
-      <if test="teacherid != null">
-        teacherid,
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="discussid != null">
-        #{discussid,jdbcType=INTEGER},
+      <if test="commentid != null">
+        #{commentid,jdbcType=INTEGER},
       </if>
-      <if test="topic != null">
-        #{topic,jdbcType=VARCHAR},
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
       </if>
-      <if test="isterminated != null">
-        #{isterminated,jdbcType=INTEGER},
+      <if test="noteid != null">
+        #{noteid,jdbcType=INTEGER},
       </if>
-      <if test="teacherid != null">
-        #{teacherid,jdbcType=BIGINT},
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.DiscussExample" resultType="java.lang.Long">
-    select count(*) from discuss
+  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.CommentExample" resultType="java.lang.Long">
+    select count(*) from comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update discuss
+    update comment
     <set>
-      <if test="record.discussid != null">
-        discussid = #{record.discussid,jdbcType=INTEGER},
+      <if test="record.commentid != null">
+        commentid = #{record.commentid,jdbcType=INTEGER},
       </if>
-      <if test="record.topic != null">
-        topic = #{record.topic,jdbcType=VARCHAR},
+      <if test="record.comment != null">
+        `comment` = #{record.comment,jdbcType=VARCHAR},
       </if>
-      <if test="record.isterminated != null">
-        isTerminated = #{record.isterminated,jdbcType=INTEGER},
+      <if test="record.noteid != null">
+        noteid = #{record.noteid,jdbcType=INTEGER},
       </if>
-      <if test="record.teacherid != null">
-        teacherid = #{record.teacherid,jdbcType=BIGINT},
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -170,35 +180,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update discuss
-    set discussid = #{record.discussid,jdbcType=INTEGER},
-      topic = #{record.topic,jdbcType=VARCHAR},
-      isTerminated = #{record.isterminated,jdbcType=INTEGER},
-      teacherid = #{record.teacherid,jdbcType=BIGINT}
+    update comment
+    set commentid = #{record.commentid,jdbcType=INTEGER},
+      `comment` = #{record.comment,jdbcType=VARCHAR},
+      noteid = #{record.noteid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Discuss">
-    update discuss
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Comment">
+    update comment
     <set>
-      <if test="topic != null">
-        topic = #{topic,jdbcType=VARCHAR},
+      <if test="comment != null">
+        `comment` = #{comment,jdbcType=VARCHAR},
       </if>
-      <if test="isterminated != null">
-        isTerminated = #{isterminated,jdbcType=INTEGER},
+      <if test="noteid != null">
+        noteid = #{noteid,jdbcType=INTEGER},
       </if>
-      <if test="teacherid != null">
-        teacherid = #{teacherid,jdbcType=BIGINT},
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
     </set>
-    where discussid = #{discussid,jdbcType=INTEGER}
+    where commentid = #{commentid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Discuss">
-    update discuss
-    set topic = #{topic,jdbcType=VARCHAR},
-      isTerminated = #{isterminated,jdbcType=INTEGER},
-      teacherid = #{teacherid,jdbcType=BIGINT}
-    where discussid = #{discussid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Comment">
+    update comment
+    set `comment` = #{comment,jdbcType=VARCHAR},
+      noteid = #{noteid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR}
+    where commentid = #{commentid,jdbcType=INTEGER}
   </update>
 </mapper>

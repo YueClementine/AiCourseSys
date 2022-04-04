@@ -8,16 +8,12 @@ import lombok.Data;
  * 
  */
 @Data
-public class Task implements Serializable {
-    private Integer taskid;
+public class Note implements Serializable {
+    private Integer noteid;
 
-    private String task;
+    private String note;
 
-    private Integer courseid;
-
-    private String coursename;
-
-    private String title;
+    private Integer addvideo;
 
     private Integer videoid;
 
@@ -31,9 +27,17 @@ public class Task implements Serializable {
 
     private String pptaddress;
 
-    private Integer addvideo;
+    private Integer taskid;
+
+    private Integer rate;
+
+    private String title;
 
     private Integer addppt;
+
+    private Long userid;
+
+    private String username;
 
     private static final long serialVersionUID = 1L;
 }

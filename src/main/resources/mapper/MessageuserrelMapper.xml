@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuebing.aicoursesys.mapper.MessageuserrelMapper">
+  <resultMap id="BaseResultMap" type="com.yuebing.aicoursesys.domain.Messageuserrel">
+    <id column="messageid" jdbcType="INTEGER" property="messageid" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="discussid" jdbcType="INTEGER" property="discussid" />
+    <result column="date" jdbcType="BIGINT" property="date" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    messageid, userid, groupid, discussid, `date`, username, message
+  </sql>
+  <select id="selectByExample" parameterType="com.yuebing.aicoursesys.domain.MessageuserrelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from messageuserrel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from messageuserrel
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from messageuserrel
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yuebing.aicoursesys.domain.MessageuserrelExample">
+    delete from messageuserrel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yuebing.aicoursesys.domain.Messageuserrel">
+    insert into messageuserrel (messageid, userid, groupid, 
+      discussid, `date`, username, 
+      message)
+    values (#{messageid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{groupid,jdbcType=INTEGER}, 
+      #{discussid,jdbcType=INTEGER}, #{date,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yuebing.aicoursesys.domain.Messageuserrel">
+    insert into messageuserrel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        messageid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="discussid != null">
+        discussid,
+      </if>
+      <if test="date != null">
+        `date`,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="discussid != null">
+        #{discussid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yuebing.aicoursesys.domain.MessageuserrelExample" resultType="java.lang.Long">
+    select count(*) from messageuserrel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update messageuserrel
+    <set>
+      <if test="record.messageid != null">
+        messageid = #{record.messageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupid != null">
+        groupid = #{record.groupid,jdbcType=INTEGER},
+      </if>
+      <if test="record.discussid != null">
+        discussid = #{record.discussid,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        `date` = #{record.date,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null">
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update messageuserrel
+    set messageid = #{record.messageid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=BIGINT},
+      groupid = #{record.groupid,jdbcType=INTEGER},
+      discussid = #{record.discussid,jdbcType=INTEGER},
+      `date` = #{record.date,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      message = #{record.message,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuebing.aicoursesys.domain.Messageuserrel">
+    update messageuserrel
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="discussid != null">
+        discussid = #{discussid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        `date` = #{date,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yuebing.aicoursesys.domain.Messageuserrel">
+    update messageuserrel
+    set userid = #{userid,jdbcType=BIGINT},
+      groupid = #{groupid,jdbcType=INTEGER},
+      discussid = #{discussid,jdbcType=INTEGER},
+      `date` = #{date,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR}
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </update>
+</mapper>

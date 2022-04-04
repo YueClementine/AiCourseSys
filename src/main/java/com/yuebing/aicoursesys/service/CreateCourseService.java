@@ -10,6 +10,7 @@ import com.yuebing.aicoursesys.mapper.CourseuserrelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CreateCourseService {
@@ -44,4 +45,7 @@ public class CreateCourseService {
         courseExample.or().andCourseidEqualTo(courseid);
         return courseMapper.selectByExample(courseExample).get(0).getUserid();
     }
+
+
+
 }
